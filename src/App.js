@@ -27,11 +27,13 @@ class App extends React.Component {
   onInputChange = ({ target }) => {
     const { name, value } = target;
 
-    const minLength = 3;
-    const inputValue = value.length < minLength;
+    const nameMinLength = 3;
+    const nameInputValidation = value.length < nameMinLength;
 
     this.setState({ [name]: value }, () => {
-      this.setState({ isLoginButtonDisabled: inputValue });
+      this.setState({
+        isLoginButtonDisabled: nameInputValidation,
+      });
     });
   };
 

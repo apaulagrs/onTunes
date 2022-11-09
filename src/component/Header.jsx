@@ -33,7 +33,7 @@ class Header extends Component {
                 to="/search"
                 data-testid="link-to-search"
               >
-                Search
+                Pesquisa
               </Link>
             </li>
             <li>
@@ -41,7 +41,7 @@ class Header extends Component {
                 to="/favorites"
                 data-testid="link-to-favorites"
               >
-                Favorites
+                Favoritos
               </Link>
             </li>
             <li>
@@ -49,7 +49,7 @@ class Header extends Component {
                 to="/profile"
                 data-testid="link-to-profile"
               >
-                Profile
+                Perfil
               </Link>
             </li>
           </ul>
