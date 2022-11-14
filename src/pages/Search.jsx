@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import { createUser } from '../services/userAPI';
@@ -65,7 +64,6 @@ class Search extends Component {
   };
 
   render() {
-    const { onSubmitButton } = this.props;
     const { searchInput,
       isSearchButtonDisabled,
       loading,
@@ -81,7 +79,7 @@ class Search extends Component {
               ? <Loading />
               : (
                 <div>
-                  <form method="get" onSubmit={ onSubmitButton }>
+                  <form>
                     <label htmlFor="searchInput">
                       <input
                         type="text"
@@ -114,39 +112,37 @@ class Search extends Component {
                     {
                       albums?.length > 0 && (
                         <div>
-                          <p>
-                            {albums
-                              .map((element) => {
-                                const {
-                                  artistId,
-                                  artistName,
-                                  collectionId,
-                                  collectionName,
-                                  collectionPrice,
-                                  artworkUrl100,
-                                  releaseDate,
-                                  trackCount } = element;
-                                return (
-                                  <div key={ collectionId }>
-                                    <Link
-                                      to={ `album/${collectionId}` }
-                                      data-testid={ `link-to-album-${collectionId}` }
-                                    >
-                                      <ul>
-                                        <li>{ artistId }</li>
-                                        <li>{ artistName }</li>
-                                        <li>{ collectionId }</li>
-                                        <li>{ collectionName }</li>
-                                        <li>{ collectionPrice }</li>
-                                        <li>{ artworkUrl100 }</li>
-                                        <li>{ releaseDate }</li>
-                                        <li>{ trackCount }</li>
-                                      </ul>
-                                    </Link>
-                                  </div>
-                                );
-                              })}
-                          </p>
+                          {albums
+                            .map((element) => {
+                              const {
+                                artistId,
+                                artistName,
+                                collectionId,
+                                collectionName,
+                                collectionPrice,
+                                artworkUrl100,
+                                releaseDate,
+                                trackCount } = element;
+                              return (
+                                <div key={ collectionId }>
+                                  <Link
+                                    to={ `album/${collectionId}` }
+                                    data-testid={ `link-to-album-${collectionId}` }
+                                  >
+                                    <ul>
+                                      <li>{ artistId }</li>
+                                      <li>{ artistName }</li>
+                                      <li>{ collectionId }</li>
+                                      <li>{ collectionName }</li>
+                                      <li>{ collectionPrice }</li>
+                                      <li>{ artworkUrl100 }</li>
+                                      <li>{ releaseDate }</li>
+                                      <li>{ trackCount }</li>
+                                    </ul>
+                                  </Link>
+                                </div>
+                              );
+                            })}
                         </div>
                       )
                     }
@@ -159,9 +155,5 @@ class Search extends Component {
     );
   }
 }
-
-Search.propTypes = {
-  onSubmitButton: PropTypes.func.isRequired,
-};
 
 export default Search;

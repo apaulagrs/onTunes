@@ -67,7 +67,7 @@ class App extends React.Component {
     return (
       <Switch>
         <Route path="/profile/edit" render={ () => <ProfileEdit /> } />
-        <Route path="/album/:id" render={ () => <Album /> } />
+        <Route path="/album/:id" component={ Album } />
         <Route path="/profile" render={ () => <Profile /> } />
         <Route path="/favorites" render={ () => <Favorites /> } />
         <Route path="/search" render={ () => <Search /> } />
