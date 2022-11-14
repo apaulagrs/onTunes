@@ -66,11 +66,11 @@ class App extends React.Component {
 
     return (
       <Switch>
-        <Route path="/profile/edit" render={ () => <ProfileEdit /> } />
+        <Route path="/profile/edit" component={ ProfileEdit } />
         <Route path="/album/:id" component={ Album } />
-        <Route path="/profile" render={ () => <Profile /> } />
-        <Route path="/favorites" render={ () => <Favorites /> } />
-        <Route path="/search" render={ () => <Search /> } />
+        <Route path="/profile" component={ Profile } />
+        <Route path="/favorites" component={ Favorites } />
+        <Route path="/search" component={ Search } />
         <Route exact path="/">
           { loading ? <Loading /> : <Login
             userName={ userName }
@@ -83,7 +83,7 @@ class App extends React.Component {
           />}
           { wasLogged && <Redirect to="/search" /> }
         </Route>
-        <Route path="*" render={ () => <NotFound /> } />
+        <Route path="*" component={ NotFound } />
       </Switch>
     );
   }

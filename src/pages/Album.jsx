@@ -4,6 +4,7 @@ import Header from '../component/Header';
 import getMusics from '../services/musicsAPI';
 import Loading from '../component/Loading';
 import MusicCard from '../component/MusicCard';
+import { addSong, removeSong } from '../services/favoriteSongsAPI';
 
 class Album extends Component {
   state = {
@@ -11,6 +12,7 @@ class Album extends Component {
     artist: '',
     album: '',
     loading: false,
+    checked: {},
   };
 
   async componentDidMount() {
@@ -25,13 +27,41 @@ class Album extends Component {
     });
   }
 
+  handleChange = async ({ target }) => {
+    const { musicList } = this.state;
+    const { name, id, checked } = target;
+    const allMusics = musicList.slice(1);
+
+    const findMusic = allMusics.find((music) => {
+      const { trackId } = music;
+      return trackId === id;
+    });
+
+    this.setState((prevState) => ({
+      checked: { ...prevState.checked, [name]: checked },
+    }));
+
+    if (checked) {
+      this.setState({ loading: true }, async () => {
+        await addSong(findMusic);
+        this.setState({ loading: false });
+      });
+    } else {
+      this.setState({ loading: true }, async () => {
+        await removeSong(findMusic);
+        this.setState({ loading: false });
+      });
+    }
+  };
+
   render() {
     const {
       musicList,
       artist,
       album,
       loading,
-      image } = this.state;
+      image,
+      checked } = this.state;
 
     const musics = musicList.slice(1);
     return (
@@ -55,6 +85,8 @@ class Album extends Component {
                     trackId={ trackId }
                     image={ image }
                     album={ album }
+                    handleChange={ this.handleChange }
+                    checked={ checked[trackName] }
                   />);
                 })
             }
