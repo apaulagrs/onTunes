@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Login from './pages/Login';
 import ProfileEdit from './pages/ProfileEdit';
 import Profile from './pages/Profile';
@@ -65,28 +65,26 @@ class App extends React.Component {
       isLoginButtonDisabled } = this.state;
 
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route path="/profile/edit" render={ () => <ProfileEdit /> } />
-          <Route path="/album/:id" render={ () => <Album /> } />
-          <Route path="/profile" render={ () => <Profile /> } />
-          <Route path="/favorites" render={ () => <Favorites /> } />
-          <Route path="/search" render={ () => <Search /> } />
-          <Route exact path="/">
-            { loading ? <Loading /> : <Login
-              userName={ userName }
-              userEmail={ userEmail }
-              userImage={ userImage }
-              userDescription={ userDescription }
-              isLoginButtonDisabled={ isLoginButtonDisabled }
-              onInputChange={ this.onInputChange }
-              onSubmitButton={ this.onSubmitButton }
-            />}
-            { wasLogged ? <Redirect to="/search" /> : null }
-          </Route>
-          <Route path="*" render={ () => <NotFound /> } />
-        </Switch>
-      </BrowserRouter>
+      <Switch>
+        <Route path="/profile/edit" render={ () => <ProfileEdit /> } />
+        <Route path="/album/:id" render={ () => <Album /> } />
+        <Route path="/profile" render={ () => <Profile /> } />
+        <Route path="/favorites" render={ () => <Favorites /> } />
+        <Route path="/search" render={ () => <Search /> } />
+        <Route exact path="/">
+          { loading ? <Loading /> : <Login
+            userName={ userName }
+            userEmail={ userEmail }
+            userImage={ userImage }
+            userDescription={ userDescription }
+            isLoginButtonDisabled={ isLoginButtonDisabled }
+            onInputChange={ this.onInputChange }
+            onSubmitButton={ this.onSubmitButton }
+          />}
+          { wasLogged && <Redirect to="/search" /> }
+        </Route>
+        <Route path="*" render={ () => <NotFound /> } />
+      </Switch>
     );
   }
 }
