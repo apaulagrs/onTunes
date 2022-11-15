@@ -52,10 +52,7 @@ class Album extends Component {
     const { name, id, checked } = target;
     const allMusics = musicList.slice(1);
 
-    const findMusic = allMusics.find((music) => {
-      const { trackId } = music;
-      return trackId === id;
-    });
+    const findMusic = allMusics.filter(({ trackId }) => trackId === id);
 
     this.setState((prevState) => ({
       checked: { ...prevState.checked, [name]: checked },
